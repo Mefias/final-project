@@ -2,6 +2,8 @@ package com.mefias;
 
 import com.mefias.model.AdressInputPage;
 import com.mefias.model.DetailsInputPage;
+import com.mefias.model.FinalPage;
+import com.mefias.model.MainPage;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -35,22 +37,16 @@ public class OrderTest {
     @Test
     public void positiveFlowTest() {
         driver.get("https://qa-scooter.praktikum-services.ru/");
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        By orderButton = By.xpath("//*[@id=\"root\"]/div/div/div[4]/div[2]/div[5]/button");
-        WebElement element = driver.findElement(orderButton);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        wait.until(ExpectedConditions.elementToBeClickable(orderButton));
-        element.click();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.clickOrderButton();
         AdressInputPage adressInputPage = new AdressInputPage(driver);
         adressInputPage.fillUserDetails("Тест", "Тест", "Москва", "89999999999");
         DetailsInputPage detailsInputPage = new DetailsInputPage(driver);
         detailsInputPage.fillUserDetails("Test");
         detailsInputPage.confirmOrder();
         detailsInputPage.seeStatus();
-        By samokatStatusDiv = By.cssSelector("div.Track_OrderBrick__1qXIA:nth-child(1) > div:nth-child(2) > div:nth-child(1)");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(samokatStatusDiv));
-        element = driver.findElement(samokatStatusDiv);
-        assertEquals("Самокат на складе", element.getText());
+        FinalPage finalPage = new FinalPage(driver);
+        assertEquals("чёрный жемчуг", finalPage.getColorText());
     }
 
 }

@@ -8,17 +8,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AdressInputPage {
 
     private WebDriver driver;
-    private By name = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/input");
-    private By surname = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/input");
-    private By address = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]/input");
-    private By station = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/div/div/input");
-    private By stationRok = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/div/div[2]/ul/li[1]");
-    private By phoneNumber = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[5]/input");
+    private WebDriverWait wait;
+    private By name = By.cssSelector(".Order_Form__17u6u > div:nth-child(1) > input:nth-child(1)");
+    private By surname = By.cssSelector("div.Input_InputContainer__3NykH:nth-child(2) > input:nth-child(1)");
+    private By address = By.cssSelector("div.Input_InputContainer__3NykH:nth-child(3) > input:nth-child(1)");
+    private By station = By.cssSelector(".select-search__input");
+    private By stationRok = By.cssSelector("li.select-search__row:nth-child(1) > button:nth-child(1)");
+    private By phoneNumber = By.cssSelector("div.Input_InputContainer__3NykH:nth-child(5) > input:nth-child(1)");
     private By forward = By.cssSelector(".Button_Middle__1CSJM");
 
 
     public AdressInputPage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, 10);
     }
 
     public void setName(String username) {
@@ -34,7 +36,6 @@ public class AdressInputPage {
     }
 
     public void setStation() {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOfElementLocated(station));
         wait.until(ExpectedConditions.elementToBeClickable(station));
         driver.findElement(station).click();
