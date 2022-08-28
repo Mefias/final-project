@@ -13,14 +13,15 @@ public class MainPage {
     private final WebDriverWait wait;
     private By importantQuestions;
     private By importantQuestionsText;
-    private By orderButton = By.cssSelector(".Button_Middle__1CSJM");
+    private final By topOrderButton = By.cssSelector(".Header_Nav__AGCXC > button:nth-child(1)");
+    private final By middleOrderButton = By.cssSelector(".Button_Middle__1CSJM");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 10);
     }
 
-    public void setImportantQuestionsSelectors(Integer sectionNumber) {
+    public void setImportantQuestionsSelectors(int sectionNumber) {
         String importantQuestionsSelector = "#accordion__heading-" + sectionNumber;
         this.importantQuestions = By.cssSelector(importantQuestionsSelector);
         String importantQuestionsTextSelector = "//*[@id=\"accordion__panel-" + sectionNumber + "\"]/p";
@@ -37,10 +38,17 @@ public class MainPage {
         return driver.findElement(importantQuestionsText).getText();
     }
 
-    public void clickOrderButton() {
-        WebElement element = driver.findElement(orderButton);
+    public void clickTopOrderButton() {
+        WebElement element = driver.findElement(topOrderButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        wait.until(ExpectedConditions.elementToBeClickable(orderButton));
+        wait.until(ExpectedConditions.elementToBeClickable(topOrderButton));
+        element.click();
+    }
+
+    public void clickMiddleOrderButton() {
+        WebElement element = driver.findElement(middleOrderButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        wait.until(ExpectedConditions.elementToBeClickable(middleOrderButton));
         element.click();
     }
 

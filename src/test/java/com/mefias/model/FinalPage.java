@@ -14,7 +14,7 @@ public class FinalPage {
 
     public FinalPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 10);
     }
 
     public String getColorText() {
